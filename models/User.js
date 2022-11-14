@@ -11,11 +11,37 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         uniqure: true,
-        //must match a valid email address(look into Mongoose's matching validation)
+        match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Please enter a valid email address']
     },
-    thoughts: {
-        //an array of _id values referenceing the user model(self-reference)
-    },
-    //create a virtual called friendCount that retireves the length of 
-    //the user's friends array field on query
-})
+    thoughts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Thought'
+        }
+    ],
+    friends: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+},
+    {
+        toJSON: {
+            virtuals: true,
+            getters: true
+        },
+        id: false
+    } 
+);
+ //create a virtual called friendCount that retireves the length of 
+//the user's friends array field on query
+UserSchema.virtual('friendCount').get(function() {
+    return this.friends.length;
+});
+
+//create the User model 
+const User = model('User', UserSchema);
+
+//export
+module.exports = User; 

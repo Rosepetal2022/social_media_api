@@ -3,8 +3,9 @@ const { Schema, model } = require('mongoose');
 const ReactionSchema = new Schema(
     {
         reactionId: {
-            //Use Mongoose's ObjectId data type 
-            //Default value is set to a new ObjectId
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+                index: true,
         },
         reactionBody: {
             type: String,
@@ -25,3 +26,5 @@ const ReactionSchema = new Schema(
 
     }
 )
+
+module.exports = Reaction;

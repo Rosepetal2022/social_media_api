@@ -1,6 +1,14 @@
-// /api/users
+const router = require('express').Router();
 
-//Get all users
+const {
+    getAllUser,
+    createUser,
+} = require('../../controllers/user-controller');
+
+router
+    .route('/')
+    .get(getAllUser)
+    .post(createUser);
 
 //Get a single user by Id
 
@@ -17,3 +25,5 @@
 //Post to add a new friend to a user's friend list
 
 //Delete to remove a friend from a users's friend list 
+
+module.exports = router;
