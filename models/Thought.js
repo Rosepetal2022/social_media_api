@@ -2,7 +2,7 @@ const { Schema, model, Types } = require('mongoose');
 const { compareAsc, format } = require('date-fns');
 
 const ReactionSchema = new Schema({
-    reactioId: {
+    reactionId: {
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId()
     },
